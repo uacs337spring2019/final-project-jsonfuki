@@ -1,5 +1,5 @@
 A webpage desgined for the artist, Zach Kramer. 
-Displays his a portion of his artwork, describes a little bit about himself.
+Displays a portion of his artworks, describes a little bit about himself.
 Uses AJAX to get and post Zach's appointments.
 
 
