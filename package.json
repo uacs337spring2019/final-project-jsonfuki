@@ -2,7 +2,7 @@
     "name": "337",
     "version": "1.0.0",
     "description": "Node.js using Express",
-    "main": "node zach_service.js",
+    "main": "zach_service.js",
     "dependencies": {
         "body-parser": "^1.18.3",
         "client-sessions": "^0.8.0",
