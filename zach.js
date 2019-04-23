@@ -27,11 +27,11 @@
 	 * Mode is dependent on the onclick event(aboutme,gallery,appointment,events)
 	 */
 	function callAjax(funct, mode, type){
-		let url = "http://kozmotattoo.herokuapp.com?mode="+mode; //heroku
-
-		//let url = "http://localhost:3000?mode="+mode; //testing
+		let url = null; 
 		if(type === "get"){
-		fetch(url)
+			url = "http://kozmotattoo.herokuapp.com?mode="+mode; //heroku
+			//url = "http://localhost:3000?mode="+mode; //testing
+			fetch(url)
 			.then(checkStatus)
 			.then(function(responseText){
 				funct(responseText);
@@ -40,6 +40,8 @@
 				console.log(error);
 			});
 		}else if(type === "post"){
+			url = "http://kozmotattoo.herokuapp.com:;
+			//url = "http://localhost:3000";
 			fetch(url)
 				.then(checkStatus)
 				.then(function(responseText){
