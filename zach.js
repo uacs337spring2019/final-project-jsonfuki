@@ -27,9 +27,9 @@
 	 * Mode is dependent on the onclick event(aboutme,gallery,appointment,events)
 	 */
 	function callAjax(funct, mode, type){
-		// let url = "http://kozmotattoo.herokuapp.com?mode="+mode; //heroku
+		let url = "http://kozmotattoo.herokuapp.com?mode="+mode; //heroku
 
-		let url = "http://localhost:3000?mode="+mode; //testing
+		//let url = "http://localhost:3000?mode="+mode; //testing
 		if(type === "get"){
 		fetch(url)
 			.then(checkStatus)
