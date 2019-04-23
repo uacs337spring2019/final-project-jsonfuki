@@ -16,7 +16,7 @@ app.use(express.static('public'));
 app.get("/", function(req,res){
 	res.header("Access-Control-Allow-Origin", "*");
 	let mode = req.query.mode;
-	let temp = null;
+	let temp = "";
 	
 	if(mode === "gallery" || mode === "slideshow"){
 		temp = JSON.stringify(getImages(mode));
