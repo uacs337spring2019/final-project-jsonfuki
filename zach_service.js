@@ -24,6 +24,7 @@ app.get("/", function(req,res){
 	}else if(mode === "appointments"){
 		res.send(JSON.stringify(getSchedule(mode)));
 	}
+	res.send("SENT");
 })
 
 
@@ -37,7 +38,7 @@ app.post('/', jsonParser, function(req, res) {
 	console.log("HELLO");
 	console.log(first +" "+last+" "+date+" "+mode);
 	//fs.appendFile()
-
+	res.send("POST");
 })
 
 
