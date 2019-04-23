@@ -16,15 +16,19 @@ app.use(express.static('public'));
 app.get("/", function(req,res){
 	res.header("Access-Control-Allow-Origin", "*");
 	let mode = req.query.mode;
-
+	let temp = null;
+	
 	if(mode === "gallery" || mode === "slideshow"){
-		res.send(JSON.stringify(getImages(mode)));
-	}else if(mode === "aboutme"){	
-		res.send(JSON.stringify(getAboutme(mode)));
+		temp = JSON.stringify(getImages(mode));
+		//res.send(JSON.stringify(getImages(mode)));
+	}else if(mode === "aboutme"){
+		temp = JSON.stringify(getAboutme(mode));
+		//res.send(JSON.stringify(getAboutme(mode)));
 	}else if(mode === "appointments"){
-		res.send(JSON.stringify(getSchedule(mode)));
+		temp = JSON.stringify(getSchedule(mode));
+		//res.send(JSON.stringify(getSchedule(mode)));
 	}
-	res.send("SENT");
+	res.send(temp);
 })
 
 
