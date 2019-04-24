@@ -13,7 +13,7 @@
     },
     "devDependencies": {},
     "scripts": {
-        "start": "node service.js",
+        "start": "node zach_service.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [
