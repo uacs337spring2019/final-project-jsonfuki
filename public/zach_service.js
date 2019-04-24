@@ -1,12 +1,3 @@
-/** 
- * Author: Jason Fukumoto
- * File: zach_service.js
- * Class: CSc 337, Allison
- * Description: Gets text, and images from files, and sends it back
- * in JSON. Post text in a given file, when user makes appointment.
- */
-
-
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -107,5 +98,5 @@ function getSchedule(mode){
 	return jsonSchedule;
 }
 
-//app.listen(process.env.PORT);
-app.listen(3000);
+app.listen(process.env.PORT); //heroku
+//app.listen(3000); //testing
