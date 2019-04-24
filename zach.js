@@ -7,7 +7,6 @@
 	let timerDates = null //calendar timer
 	let datePointer = ""; //reference to which date was clicked
 
-
 	window.onload = function(){
 		callAjax(createSlideShow, "slideshow", "get"); //slideshow
 
@@ -21,8 +20,6 @@
 		document.getElementById("gallery").onclick = galleryClick;	
 		document.getElementById("appointments").onclick = appointmentsClick;
 		document.getElementById("events").onclick = eventsClick;	
-
-
 	};
 
 	/**
@@ -30,12 +27,12 @@
 	 * Mode is dependent on the onclick event(aboutme,gallery,appointment,events)
 	 */
 	function callAjax(param, mode, type){
-		//let url = "http://kozmotattoo.herokuapp.com";
-		let url = "http://localhost:3000";
+		let url = "http://kozmotattoo.herokuapp.com";
+		//let url = "http://localhost:3000";
 		
 		if(type === "get"){
-		//url = url+"?mode="+mode; //heroku
-		url = url+"?mode="+mode; //testing
+		url = url+"?mode="+mode; //heroku
+		//url = url+"?mode="+mode; //testing
 		fetch(url)
 			.then(checkStatus)
 			.then(function(responseText){
@@ -45,7 +42,6 @@
 				console.log(error);
 			});
 		}else if(type === "post"){
-			//url = "http://kozmotattoo.herokuapp.com";
 			fetch(url, mode) //fetchOptions
 				.then(checkStatus)
 				.then(function(responseText){
@@ -71,14 +67,12 @@
 		}
 	}
 
-
 	/**
 	 * Injects information taken from JSON object, aboutme.txt
 	 */
 	function createAboutme(responseText){
 		document.getElementById("headermid").innerHTML = "About Me";
 		document.getElementById("aboutmebox").innerHTML = "";
-
 		showElement("optionsabout"); //shows aboutme context and hides rest
 
 		let aboutMeDiv = document.getElementById("aboutmebox");
@@ -89,19 +83,16 @@
 		aboutMeDiv.appendChild(paraElem);
 	}
 
-
 	/**
 	 * Creates image elements and injects it in the page from JSON object.
 	 */
 	function createGallery(responseText){
 		document.getElementById("headermid").innerHTML = "Gallery";
 		document.getElementById("gallerybox").innerHTML = "";
-
 		showElement("optionsgallery"); //shows gallery contents and hides rest
 		
 		let galleryDiv = document.getElementById("gallerybox");
 		let images = JSON.parse(responseText);
-
 		for (let i =0; i<images["images"].length; i++){
 			let eachImg = document.createElement("img");
 			eachImg.className = "eachimage";
@@ -121,13 +112,14 @@
 		document.getElementById("success").style.display = "none";
 		showElement("optionsapp"); //shows and hides needed elements
 		
-		let tableDiv = document.getElementById("calendar");
-		let schedule = JSON.parse(responseText);
-		let datesList = getDates(schedule);
-		
+		//for calendar td placement and number
 		let num = 1;
 		let startGrid = 3; //month starts
 		let endGrid = 33; //month ends
+		
+		let tableDiv = document.getElementById("calendar");
+		let schedule = JSON.parse(responseText);
+		let datesList = getDates(schedule);
 		for(let i = 0; i < 35; i++){ //35(7x5) to create calendar grid
 			let eachTD = document.createElement("td");
 			if(i >= startGrid && i <= endGrid){
@@ -138,9 +130,8 @@
 			}
 			addRowCol(i, eachTD); //adds tds to specific trs
 		}
-		datesAvailable(datesList);
+		datesAvailable(datesList); //Determines is days are booked
 	}
-
 
 	/**
 	 * Sets a calendar date to be valid or invalid
@@ -161,7 +152,6 @@
 		}	
 	}
 
-
 	/**
 	 * Displays an input text box if a blox is not booked.
 	 * Uses POST when button is clicked
@@ -175,13 +165,14 @@
 			document.getElementById("last").onclick = clearBox;
 			datePointer = this.innerHTML;
 			document.getElementById("send").onclick = submitApp;
-
 		}else{
 			document.getElementById("appname").style.visibility = "hidden";
 		}
 	}
-
-
+	
+	/**
+	 * POST request to append names and dates in a file
+	 */
 	function submitApp(){
 		let firstName = document.getElementById("first").value;
 		let lastName = document.getElementById("last").value;
@@ -210,6 +201,9 @@
 		document.getElementById("last").value = "Last Name";
 	}
 
+	/**
+	 * Displays a successful appointment booking
+	 */
 	function success(responseText){
 		document.getElementById("appname").style.visibility = "hidden";
 		let successDiv = document.getElementById("success");
@@ -251,7 +245,6 @@
 		}
 	}
 
-
 	/**
 	 * Uses ajax to get a JSON obeject with all the images from the file.
 	 * Creates div and img elements for each image and injects it to the DOM.
@@ -271,7 +264,6 @@
 		showSlides();
 	}
 
-
 	/**
 	 * Sets a timer to display all the images to create a slideshow effect.
 	 */
@@ -287,7 +279,6 @@
 			slides[slideIndx-1].style.display = "block";
 			timerSlide = setTimeout(showSlides, 2500); //2.5 seconds
 	}
-
 
 	/**
 	 * Shows a specific element and hides the rest
@@ -309,7 +300,6 @@
 		}
 	}
 
-
 	/**
 	 * Fetches data from server.
 	 * @Params: function, query, reqeust
@@ -326,19 +316,26 @@
 		callAjax(createGallery, "gallery", "get");
 	}
 
-
+	/**
+	 * Fetches and creates an interval to refresh the calendar bookings
+	 */
 	function appointmentsClick(){
 		callAjax(createAppointments, "appointments", "get");
 		timerDates = setInterval(runTimer, 5000); //five seconds
 	}
 
+	/**
+	 * Creates interval and fetches every five seconds 
+	 */
 	function runTimer(){
 		callAjax(createAppointments, "appointments", "get");
 	}
 
+	/**
+	 * Function under construction
+	 */
 	function eventsClick(){
 		document.getElementById("headermid").innerHTML = "Under Construction";
-
 		showElement("optionsgallery"); //shows gallery contents and hides rest
 	}
 
@@ -352,18 +349,11 @@
 		document.getElementById("headermid").style.display = "none";
 	}
 
+	/**
+	 * Clears text when user inputs name
+	 */
 	function clearBox(){
 		this.value = "";
 	}
 
 })();
-
-
-
-
-/*
-enlarge image: this.parentNode.children
-
-
-
-*/
