@@ -40,20 +40,20 @@ app.get("/", function(req,res){
 })
 
 
-app.post('/', jsonParser, function(req, res) {
-	res.header("Access-Control-Allow-Origin", "*");
-	let first = req.body.firstname;
-	let last = req.body.lastname;
-	let date = req.body.date;
-	let month = req.body.month; //specific month
-	let mode = req.body.mode; //Appointments string
-	fs.appendFile(mode+"\\2019\\"+month+".txt","\n"+date+", "+first+" "+last, function(error){
-		if(error){
-			res.send(error);
-		}
-		res.send("Success");
-	});
-})
+// app.post('/', jsonParser, function(req, res) {
+// 	res.header("Access-Control-Allow-Origin", "*");
+// 	let first = req.body.firstname;
+// 	let last = req.body.lastname;
+// 	let date = req.body.date;
+// 	let month = req.body.month; //specific month
+// 	let mode = req.body.mode; //Appointments string
+// 	fs.appendFile(mode+"\\2019\\"+month+".txt","\n"+date+", "+first+" "+last, function(error){
+// 		if(error){
+// 			res.send(error);
+// 		}
+// 		res.send("Success");
+// 	});
+// })
 
 
 /**
