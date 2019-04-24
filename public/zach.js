@@ -28,12 +28,13 @@
 	 * Mode is dependent on the onclick eventaboutme,gallery,appointment,events
 	 */
 	function callAjax(param, mode, type){
-		let url = "http://kosmotattoo.herokuapp.com:"; //heroku
+		let url = "http://kosmotattoo.herokuapp.com"; //heroku
 		//let url = "http://localhost:3000"; //testing
 		
 		if(type === "get"){
-		url = url+"?mode="+mode; //heroku
-		//url = url+"?mode="+mode; //testing
+			url = url+"?mode="+mode; //heroku
+			//url = url+"?mode="+mode; //testing
+		}
 		fetch(url)
 			.then(checkStatus)
 			.then(function(responseText){
