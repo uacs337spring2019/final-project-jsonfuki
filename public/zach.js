@@ -34,15 +34,14 @@
 		if(type === "get"){
 			url = url+"?mode="+mode; //heroku
 			//url = url+"?mode="+mode; //testing
-		}
-		fetch(url)
-			.then(checkStatus)
-			.then(function(responseText){
-				param(responseText); //calls function
-			})
-			.catch(function(error){
-				console.log(error);
-			});
+			fetch(url)
+				.then(checkStatus)
+				.then(function(responseText){
+					param(responseText); //calls function
+				})
+				.catch(function(error){
+					console.log(error);
+				});
 		}else if(type === "post"){
 			fetch(url, mode) //fetchOptions
 				.then(checkStatus)
