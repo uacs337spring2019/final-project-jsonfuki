@@ -31,20 +31,20 @@
 	 * @param {string} type folder/files
 	 */
 	function callAjax(param, mode, type){
-		let url = "http://kozmotattoo.herokuapp.com";
+		let url = "http://kosmotattoo.herokuapp.com";
 		//let url = "http://localhost:3000";
 		
 		if(type === "get"){
-		url = url+"?mode="+mode; //heroku
-		//url = url+"?mode="+mode; //testing
-		fetch(url)
-			.then(checkStatus)
-			.then(function(responseText){
-				param(responseText); //calls function
-			})
-			.catch(function(error){
-				console.log(error);
-			});
+			url = url+"?mode="+mode; //heroku
+			//url = url+"?mode="+mode; //testing
+			fetch(url)
+				.then(checkStatus)
+				.then(function(responseText){
+					param(responseText); //calls function
+				})
+				.catch(function(error){
+					console.log(error);
+				});
 		}else if(type === "post"){
 			fetch(url, mode) //fetchOptions
 				.then(checkStatus)
