@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
 const fs = require("fs");
-let temp = null;
+let temp = "";
 
 app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
@@ -42,8 +42,8 @@ app.post('/', jsonParser, function(req, res) {
 		if(error){
 			res.send(error);
 		}
-		res.send("Success");
 	});
+	res.send("Success");
 })
 
 
