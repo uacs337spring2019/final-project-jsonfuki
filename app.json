@@ -1,7 +1,7 @@
 {
 	"name": "Node.js Sample",
 	"description": "A barebone Node.js app using Express 4",
-	"repository": "https://github.com/uacs337spring2019/final-project-jsonfuki",
+	"repository": "https://github.com/uacs337spring2019/final-project-jsonfuki.git",
 	"logo": "",
 	"keywords": ""
 }
