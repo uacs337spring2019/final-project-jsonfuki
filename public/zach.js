@@ -1,6 +1,6 @@
-"use strict";
-
 (function(){
+
+	"use strict";
 
 	let slideIndx = 0; //slide show images
 	let timerSlide = null; //slideshow timer
@@ -26,23 +26,25 @@
 	/**
 	 * A fetch for a POST & GET request, depending on parameter.
 	 * Mode is dependent on the onclick eventaboutme,gallery,appointment,events
+	 * @param {function} param calls function
+	 * @param {query} mode used for query
+	 * @param {string} type folder/files
 	 */
 	function callAjax(param, mode, type){
-		let url = "http://kosmotattoo.herokuapp.com:"; //heroku
-		//let url = "http://localhost:3000"; //testing
+		let url = "http://kozmotattoo.herokuapp.com";
+		//let url = "http://localhost:3000";
 		
 		if(type === "get"){
-			console.log(url);
-			url = url+"?mode="+mode; //heroku
-			//url = url+"?mode="+mode; //testing
-			fetch(url)
-				.then(checkStatus)
-				.then(function(responseText){
-					param(responseText); //calls function
-				})
-				.catch(function(error){
-					console.log(error);
-				});
+		url = url+"?mode="+mode; //heroku
+		//url = url+"?mode="+mode; //testing
+		fetch(url)
+			.then(checkStatus)
+			.then(function(responseText){
+				param(responseText); //calls function
+			})
+			.catch(function(error){
+				console.log(error);
+			});
 		}else if(type === "post"){
 			fetch(url, mode) //fetchOptions
 				.then(checkStatus)
@@ -58,6 +60,8 @@
 	/**
 	 * If the response is valid, then returns to callAjax.
 	 * Outputs an error if not a 200-300 status
+	 * @param {int} response Checks to see if valid
+	 * @returns {promise} error message
 	 */
 	function checkStatus(response){
 		if (response.status >= 200 && response.status < 300){
@@ -72,6 +76,7 @@
 
 	/**
 	 * Injects information taken from JSON object, aboutme.txt
+	 * @param {object} responseText JSON object
 	 */
 	function createAboutme(responseText){
 		document.getElementById("headermid").innerHTML = "About Me";
@@ -90,6 +95,7 @@
 
 	/**
 	 * Creates image elements and injects it in the page from JSON object.
+	 * @param {object} responseText JSON object
 	 */
 	function createGallery(responseText){
 		document.getElementById("headermid").innerHTML = "Gallery";
@@ -112,6 +118,7 @@
 	/**
 	 * Uses JSON object to create a calendar with the corresponding month
 	 * Creates tds to keep track if an appointment can be set
+	 * @param {object} responseText JSON object
 	 */
 	function createAppointments(responseText){
 		document.getElementById("headermid").innerHTML = "Appointments";
@@ -142,6 +149,7 @@
 	/**
 	 * Sets a calendar date to be valid or invalid
 	 * Used as a reference to set appointment
+	 * @param {array} datesList Strings of dates from file
 	 */
 	function datesAvailable(datesList){
 		let calendarDates = document.querySelectorAll(".eachtd");
@@ -212,6 +220,7 @@
 
 	/**
 	 * Displays a successful appointment booking
+	 * @param {object} responseText JSON object
 	 */
 	function success(responseText){
 		document.getElementById("appname").style.visibility = "hidden";
@@ -223,6 +232,8 @@
 
 	/**
 	 * Returns a list string integers of dates from appointment file. 
+	 * @param {object} schedule JSON object
+	 * @returns {array} Array of strings
 	 */
 	function getDates(schedule){
 		let datesList = [];
@@ -234,6 +245,8 @@
 
 	/**
 	 * Adds 7 td elements in a tr to replicate a calendar
+	 * @param {int} i loop iteration
+	 * @param {element} eachTD table cell
 	 */
 	function addRowCol(i, eachTD){
 		let row1 = document.getElementById("row1");
@@ -259,6 +272,7 @@
 	 * Uses ajax to get a JSON obeject with all the images from the file.
 	 * Creates div and img elements for each image and injects it to the DOM.
 	 * Calls a function to show the slides
+	 * @param {object} responseText JSON object
 	 */
 	function createSlideShow(responseText){
 		let jsonSlide = JSON.parse(responseText);
@@ -295,6 +309,7 @@
 	/**
 	 * Shows a specific element and hides the rest
 	 * Stops the timer for the slideshow
+	 * @param {div} element div from html
 	 */
 	function showElement(element){
 		clearTimeout(timerSlide);
@@ -315,7 +330,6 @@
 
 	/**
 	 * Fetches data from server.
-	 * @Params: function, query, reqeust
 	 */
 	function aboutmeClick(){
 		callAjax(createAboutme, "aboutme", "get");
