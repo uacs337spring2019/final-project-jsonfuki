@@ -1,12 +1,3 @@
-/** 
- * Author: Jason Fukumoto
- * File: zach.js
- * Class: CSc 337, Allison
- * Description: A webpage that displays text and images by using
- * AJAX. Allows user to book an appointment.
- */
-
-
 (function(){
 
 	"use strict";
@@ -37,12 +28,12 @@
 	 * Mode is dependent on the onclick eventaboutme,gallery,appointment,events
 	 */
 	function callAjax(param, mode, type){
-		//let url = "http://kozmotattoo.herokuapp.com";
-		let url = "http://localhost:3000";
+		let url = "http://kozmotattoo.herokuapp.com"; //heroku
+		//let url = "http://localhost:3000"; //testing
 		
 		if(type === "get"){
-		//url = url+"?mode="+mode; //heroku
-		url = url+"?mode="+mode; //testing
+		url = url+"?mode="+mode; //heroku
+		//url = url+"?mode="+mode; //testing
 		fetch(url)
 			.then(checkStatus)
 			.then(function(responseText){
@@ -52,7 +43,6 @@
 				console.log(error);
 			});
 		}else if(type === "post"){
-			//url = "http://kozmotattoo.herokuapp.com";
 			fetch(url, mode) //fetchOptions
 				.then(checkStatus)
 				.then(function(responseText){
