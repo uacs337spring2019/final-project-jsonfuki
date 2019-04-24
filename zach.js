@@ -4,7 +4,7 @@
 
 	let slideIndx = 0; //slide show images
 	let timerSlide = null; //slideshow timer
-	let timerDates = null //calendar timer
+	let timerDates = null; //calendar timer
 	let datePointer = ""; //reference to which date was clicked
 
 	window.onload = function(){
@@ -24,15 +24,18 @@
 
 	/**
 	 * A fetch for a POST & GET request, depending on parameter.
-	 * Mode is dependent on the onclick event(aboutme,gallery,appointment,events)
+	 * Mode is dependent on the onclick eventaboutme,gallery,appointment,events
+	 * @param {function} param calls function
+	 * @param {query} mode used for query
+	 * @param {string} type folder/files
 	 */
 	function callAjax(param, mode, type){
-		let url = "http://kozmotattoo.herokuapp.com";
-		//let url = "http://localhost:3000";
+		//let url = "http://kozmotattoo.herokuapp.com";
+		let url = "http://localhost:3000";
 		
 		if(type === "get"){
-		url = url+"?mode="+mode; //heroku
-		//url = url+"?mode="+mode; //testing
+		//url = url+"?mode="+mode; //heroku
+		url = url+"?mode="+mode; //testing
 		fetch(url)
 			.then(checkStatus)
 			.then(function(responseText){
@@ -42,6 +45,7 @@
 				console.log(error);
 			});
 		}else if(type === "post"){
+			//url = "http://kozmotattoo.herokuapp.com";
 			fetch(url, mode) //fetchOptions
 				.then(checkStatus)
 				.then(function(responseText){
@@ -56,6 +60,8 @@
 	/**
 	 * If the response is valid, then returns to callAjax.
 	 * Outputs an error if not a 200-300 status
+	 * @param {int} response Checks to see if valid
+	 * @returns {promise} error message
 	 */
 	function checkStatus(response){
 		if (response.status >= 200 && response.status < 300){
@@ -67,12 +73,15 @@
 		}
 	}
 
+
 	/**
 	 * Injects information taken from JSON object, aboutme.txt
+	 * @param {object} responseText JSON object
 	 */
 	function createAboutme(responseText){
 		document.getElementById("headermid").innerHTML = "About Me";
 		document.getElementById("aboutmebox").innerHTML = "";
+
 		showElement("optionsabout"); //shows aboutme context and hides rest
 
 		let aboutMeDiv = document.getElementById("aboutmebox");
@@ -83,16 +92,20 @@
 		aboutMeDiv.appendChild(paraElem);
 	}
 
+
 	/**
 	 * Creates image elements and injects it in the page from JSON object.
+	 * @param {object} responseText JSON object
 	 */
 	function createGallery(responseText){
 		document.getElementById("headermid").innerHTML = "Gallery";
 		document.getElementById("gallerybox").innerHTML = "";
+
 		showElement("optionsgallery"); //shows gallery contents and hides rest
 		
 		let galleryDiv = document.getElementById("gallerybox");
 		let images = JSON.parse(responseText);
+
 		for (let i =0; i<images["images"].length; i++){
 			let eachImg = document.createElement("img");
 			eachImg.className = "eachimage";
@@ -105,6 +118,7 @@
 	/**
 	 * Uses JSON object to create a calendar with the corresponding month
 	 * Creates tds to keep track if an appointment can be set
+	 * @param {object} responseText JSON object
 	 */
 	function createAppointments(responseText){
 		document.getElementById("headermid").innerHTML = "Appointments";
@@ -112,14 +126,12 @@
 		document.getElementById("success").style.display = "none";
 		showElement("optionsapp"); //shows and hides needed elements
 		
-		//for calendar td placement and number
+		let schedule = JSON.parse(responseText);
+		let datesList = getDates(schedule);
+		
 		let num = 1;
 		let startGrid = 3; //month starts
 		let endGrid = 33; //month ends
-		
-		let tableDiv = document.getElementById("calendar");
-		let schedule = JSON.parse(responseText);
-		let datesList = getDates(schedule);
 		for(let i = 0; i < 35; i++){ //35(7x5) to create calendar grid
 			let eachTD = document.createElement("td");
 			if(i >= startGrid && i <= endGrid){
@@ -130,12 +142,14 @@
 			}
 			addRowCol(i, eachTD); //adds tds to specific trs
 		}
-		datesAvailable(datesList); //Determines is days are booked
+		datesAvailable(datesList);
 	}
+
 
 	/**
 	 * Sets a calendar date to be valid or invalid
 	 * Used as a reference to set appointment
+	 * @param {array} datesList Strings of dates from file
 	 */
 	function datesAvailable(datesList){
 		let calendarDates = document.querySelectorAll(".eachtd");
@@ -152,6 +166,7 @@
 		}	
 	}
 
+
 	/**
 	 * Displays an input text box if a blox is not booked.
 	 * Uses POST when button is clicked
@@ -165,11 +180,12 @@
 			document.getElementById("last").onclick = clearBox;
 			datePointer = this.innerHTML;
 			document.getElementById("send").onclick = submitApp;
+
 		}else{
 			document.getElementById("appname").style.visibility = "hidden";
 		}
 	}
-	
+
 	/**
 	 * POST request to append names and dates in a file
 	 */
@@ -201,8 +217,10 @@
 		document.getElementById("last").value = "Last Name";
 	}
 
+
 	/**
 	 * Displays a successful appointment booking
+	 * @param {object} responseText JSON object
 	 */
 	function success(responseText){
 		document.getElementById("appname").style.visibility = "hidden";
@@ -214,6 +232,8 @@
 
 	/**
 	 * Returns a list string integers of dates from appointment file. 
+	 * @param {object} schedule JSON object
+	 * @returns {array} Array of strings
 	 */
 	function getDates(schedule){
 		let datesList = [];
@@ -225,6 +245,8 @@
 
 	/**
 	 * Adds 7 td elements in a tr to replicate a calendar
+	 * @param {int} i loop iteration
+	 * @param {element} eachTD table cell
 	 */
 	function addRowCol(i, eachTD){
 		let row1 = document.getElementById("row1");
@@ -245,10 +267,12 @@
 		}
 	}
 
+
 	/**
 	 * Uses ajax to get a JSON obeject with all the images from the file.
 	 * Creates div and img elements for each image and injects it to the DOM.
 	 * Calls a function to show the slides
+	 * @param {object} responseText JSON object
 	 */
 	function createSlideShow(responseText){
 		let jsonSlide = JSON.parse(responseText);
@@ -263,6 +287,7 @@
 		}
 		showSlides();
 	}
+
 
 	/**
 	 * Sets a timer to display all the images to create a slideshow effect.
@@ -280,9 +305,11 @@
 			timerSlide = setTimeout(showSlides, 2500); //2.5 seconds
 	}
 
+
 	/**
 	 * Shows a specific element and hides the rest
 	 * Stops the timer for the slideshow
+	 * @param {div} element div from html
 	 */
 	function showElement(element){
 		clearTimeout(timerSlide);
@@ -300,9 +327,9 @@
 		}
 	}
 
+
 	/**
 	 * Fetches data from server.
-	 * @Params: function, query, reqeust
 	 */
 	function aboutmeClick(){
 		callAjax(createAboutme, "aboutme", "get");
@@ -315,6 +342,7 @@
 	function galleryClick(){
 		callAjax(createGallery, "gallery", "get");
 	}
+
 
 	/**
 	 * Fetches and creates an interval to refresh the calendar bookings
@@ -332,10 +360,11 @@
 	}
 
 	/**
-	 * Function under construction
+	 * function under construction
 	 */
 	function eventsClick(){
 		document.getElementById("headermid").innerHTML = "Under Construction";
+
 		showElement("optionsgallery"); //shows gallery contents and hides rest
 	}
 
