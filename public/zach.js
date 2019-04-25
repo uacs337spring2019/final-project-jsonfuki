@@ -207,7 +207,8 @@
 			firstname: firstName,
 			lastname: lastName,
 			month: month,
-			mode: mode
+			mode: mode,
+			date: date
 			};
 		const fetchOptions = {
 			method: 'POST',
