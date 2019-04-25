@@ -46,6 +46,7 @@
 					console.log(error);
 				});
 		}else if(type === "post"){
+			console.log("POST);
 			fetch(url, mode) //fetchOptions
 				.then(checkStatus)
 				.then(function(responseText){
