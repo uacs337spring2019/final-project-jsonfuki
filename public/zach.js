@@ -49,6 +49,7 @@
 			fetch(url, mode) //fetchOptions
 				.then(checkStatus)
 				.then(function(responseText){
+				console.log(repsonseText);
 					document.getElementById("appname").style.visibility = "hidden";
 					let successDiv = document.getElementById("success");
 					successDiv.style.display = "block";
