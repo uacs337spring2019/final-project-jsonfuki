@@ -35,7 +35,7 @@
 		//let url = "http://localhost:3000";
 		
 		if(type === "get"){
-			url = url+"?mode="+mode; //heroku
+			url = url+"/?mode="+mode; //heroku
 			//url = url+"?mode="+mode; //testing
 			fetch(url)
 				.then(checkStatus)
