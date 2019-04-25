@@ -195,17 +195,16 @@
 	 * POST request to append names and dates in a file
 	 */
 	function submitApp(){
-		let firstName = document.getElementById("first").value;
-		let lastName = document.getElementById("last").value;
+		let first = document.getElementById("first").value;
+		let last = document.getElementById("last").value;
 		let month = "May";
 		let mode = "appointments";
 		let date = datePointer;
 		document.getElementById("first").value = "";
 		document.getElementById("last").value = "";
 		const message = {
-			date: date,
-			firstname: firstName,
-			lastname: lastName,
+			first: first,
+			last: last,
 			month: month,
 			mode: mode,
 			date: date
