@@ -46,11 +46,11 @@
 					console.log(error);
 				});
 		}else if(type === "post"){
-			console.log("POST");
 			fetch(url, mode) //fetchOptions
 				.then(checkStatus)
 				.then(function(responseText){
-					param(responseText); //calls function
+				//console.log(param)
+					//param(responseText); //calls function
 				})
 				.catch(function(error){
 					console.log(error);
@@ -180,7 +180,6 @@
 			document.getElementById("first").onclick = clearBox;
 			document.getElementById("last").onclick = clearBox;
 			datePointer = this.innerHTML;
-			console.log("BEFORE CLICK");
 			document.getElementById("send").onclick = submitApp;
 
 		}else{
