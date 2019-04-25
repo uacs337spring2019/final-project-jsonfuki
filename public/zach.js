@@ -49,6 +49,11 @@
 			fetch(url, mode) //fetchOptions
 				.then(checkStatus)
 				.then(function(responseText){
+					document.getElementById("appname").style.visibility = "hidden";
+					let successDiv = document.getElementById("success");
+					successDiv.style.display = "block";
+					successDiv.innerHTML = "Appointment was a "+responseText+"!";
+					timerDates = setInterval(runTimer, 5000); //refresh page after success
 				//console.log(param)
 					//param(responseText); //calls function
 				})
@@ -224,13 +229,13 @@
 	 * Displays a successful appointment booking
 	 * @param {object} responseText JSON object
 	 */
-	function success(responseText){
-		document.getElementById("appname").style.visibility = "hidden";
-		let successDiv = document.getElementById("success");
-		successDiv.style.display = "block";
-		successDiv.innerHTML = "Appointment was a "+responseText+"!";
-		timerDates = setInterval(runTimer, 5000); //refresh page after success
-	}
+// 	function success(responseText){
+// 		document.getElementById("appname").style.visibility = "hidden";
+// 		let successDiv = document.getElementById("success");
+// 		successDiv.style.display = "block";
+// 		successDiv.innerHTML = "Appointment was a "+responseText+"!";
+// 		timerDates = setInterval(runTimer, 5000); //refresh page after success
+// 	}
 
 	/**
 	 * Returns a list string integers of dates from appointment file. 
