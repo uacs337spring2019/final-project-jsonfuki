@@ -39,6 +39,7 @@ app.get("/", function(req,res){
 
 
 app.post('/', jsonParser, function(req, res) {
+	console.log("IN POST");
 	res.header("Access-Control-Allow-Origin", "*");
 	let first = req.body.firstname;
 	let last = req.body.lastname;
