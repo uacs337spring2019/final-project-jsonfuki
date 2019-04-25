@@ -49,14 +49,11 @@
 			fetch(url, mode) //fetchOptions
 				.then(checkStatus)
 				.then(function(responseText){
-				console.log("IN POST");
 					document.getElementById("appname").style.visibility = "hidden";
 					let successDiv = document.getElementById("success");
 					successDiv.style.display = "block";
 					successDiv.innerHTML = "Appointment was a "+responseText+"!";
 					timerDates = setInterval(runTimer, 5000); //refresh page after success
-				//console.log(param)
-					//param(responseText); //calls function
 				})
 				.catch(function(error){
 					console.log(error);
@@ -200,9 +197,8 @@
 		let firstName = document.getElementById("first").value;
 		let lastName = document.getElementById("last").value;
 		let month = "May";
-		let mode = "Appointments";
+		let mode = "appointments";
 		let date = datePointer;
-		console.log(month);
 		document.getElementById("first").value = "";
 		document.getElementById("last").value = "";
 		const message = {
