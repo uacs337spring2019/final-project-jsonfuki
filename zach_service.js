@@ -1,7 +1,6 @@
 /** 
  * Author: Jason Fukumoto
  * File: zach_service.js
- * Class: CSc 337, Allison
  * Description: Gets text, and images from files, and sends it back
  * in JSON. Post text in a given file, when user makes appointment.
  */
@@ -21,7 +20,6 @@ app.use(function(req, res, next) {
 });
 
 app.use(express.static('public'));
-
 
 app.get("/", function(req,res){
 	res.header("Access-Control-Allow-Origin", "*");
@@ -47,6 +45,7 @@ app.post('/', jsonParser, function(req, res) {
 	let date = req.body.date;
 	let month = req.body.month; //specific month
 	let mode = req.body.mode; //appointments string
+	console.log(mode+"\\2019\\"+month+".txt");
 	fs.appendFile(mode+"\\2019\\"+month+".txt","\n"+date+", "+first+" "+last, function(error){
 		if(error){
 			res.send(error);
