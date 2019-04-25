@@ -195,6 +195,7 @@
 		let month = "May";
 		let mode = "Appointments";
 		let date = datePointer;
+		console.log(month);
 		document.getElementById("first").value = "";
 		document.getElementById("last").value = "";
 		const message = {
