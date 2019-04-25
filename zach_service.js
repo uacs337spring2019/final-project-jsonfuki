@@ -47,6 +47,7 @@ app.post('/', jsonParser, function(req, res) {
 	let date = req.body.date;
 	let month = req.body.month; //specific month
 	let mode = req.body.mode; //Appointments string
+	console.log(mode+"\\2019\\"+month+".txt");
 	fs.appendFile(mode+"\\2019\\"+month+".txt","\n"+date+", "+first+" "+last, function(error){
 		if(error){
 			res.send(error);
