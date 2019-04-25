@@ -180,6 +180,7 @@
 			document.getElementById("first").onclick = clearBox;
 			document.getElementById("last").onclick = clearBox;
 			datePointer = this.innerHTML;
+			console.log("BEFORE CLICK");
 			document.getElementById("send").onclick = submitApp;
 
 		}else{
