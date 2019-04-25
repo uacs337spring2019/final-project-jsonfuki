@@ -26,7 +26,7 @@ app.use(express.static('public'));
 app.get("/", function(req,res){
 	res.header("Access-Control-Allow-Origin", "*");
 	let mode = req.query.mode;
-	if(mode === "gallery" || mode === "slideshow"){
+	if(mode === "gallery"){
 		temp = JSON.stringify(getImages(mode));
 		//res.send(JSON.stringify(getImages(mode)));
 	}else if(mode === "aboutme"){	
@@ -35,6 +35,8 @@ app.get("/", function(req,res){
 	}else if(mode === "appointments"){
 		temp = JSON.stringify(getSchedule(mode));
 		//res.send(JSON.stringify(getSchedule(mode)));
+	}else if(mode ==="slideshow"){
+		temp = JSON.stringify(getImages(mode));	
 	}
 	res.send(temp);
 })
