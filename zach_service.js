@@ -41,13 +41,13 @@ app.get("/", function(req,res){
 app.post('/', jsonParser, function(req, res) {
 	console.log("IN POST");
 	res.header("Access-Control-Allow-Origin", "*");
-	let first = req.body.firstname;
-	let last = req.body.lastname;
-	let date = req.body.date;
+	let first = req.body.first;
+	let last = req.body.last;
 	let month = req.body.month; //specific month
 	let mode = req.body.mode; //appointments string
-	console.log(mode+"\\2019\\"+month+".txt");
-	fs.appendFile(mode+"\\2019\\"+month+".txt","\n"+date+", "+first+" "+last, function(error){
+	let date = req.body.date;
+	console.log(mode+"/019/"+month+".txt");
+	fs.appendFile(mode+"/2019/"+month+".txt","\n"+date+", "+first+" "+last, function(error){
 		if(error){
 			res.send(error);
 		}
