@@ -365,7 +365,7 @@
 	function eventsClick(){
 		document.getElementById("headermid").innerHTML = "Under Construction";
 
-		showElement("optionsgallery"); //shows gallery contents and hides rest
+		showElement("optionsmid"); //shows gallery contents and hides rest
 	}
 
 	/**
