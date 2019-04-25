@@ -31,7 +31,7 @@
 	 * @param {string} type folder/files
 	 */
 	function callAjax(param, mode, type){
-		let url = "http://kosmotattoo.herokuapp.com";
+		let url = "https://kosmotattoo.herokuapp.com";
 		//let url = "http://localhost:3000";
 		
 		if(type === "get"){
